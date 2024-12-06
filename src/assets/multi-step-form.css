@@ -1,0 +1,162 @@
+body {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+  font-family: "Roboto", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.input-field-sec {
+  position: relative;
+}
+
+.input-label {
+  position: absolute;
+  left: 16px;
+  top: 16px;
+  background-color: #fff;
+  transition: all 0.3s;
+  font-size: 15px;
+  padding: 0px 4px;
+}
+
+.input-field {
+  padding: 16px;
+  outline: none;
+  border-radius: 4px;
+  border-width: 0px;
+  border: 1px solid #d0cdcd;
+  font-size: 15.5px;
+  width: 100%;
+}
+
+.input-field-error {
+  font-size: 13px;
+  color: red;
+}
+
+.required {
+  color: red;
+}
+
+.input-field:not(:placeholder-shown) ~ .input-label,
+.input-field:focus ~ .input-label {
+  left: 10px;
+  top: -9px;
+}
+
+.main-section {
+  padding: 20px;
+}
+
+.progress-stepper-sec {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+}
+
+.stepper-sec {
+  position: relative;
+}
+
+.step-line-left {
+  content: "";
+  display: block;
+  left: 0;
+  height: 30px;
+  width: 28%;
+  background-color: #fff;
+  position: absolute;
+  top: 0;
+  z-index: 0;
+}
+
+.step-line-right {
+  content: "";
+  display: block;
+  height: 30px;
+  width: 67%;
+  background-color: #fff;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 0;
+}
+
+/* .active-indicator-line {
+  position: absolute;
+  height: 3.2px;
+  left: 0;
+  right: 0;
+  top: 10px;
+  background-color: #2c7cff;
+  z-index: 0;
+  width: 0%;
+  transition: all 0.5s;
+} */
+
+.indicator-line {
+  position: absolute;
+  height: 3.2px;
+  left: 0;
+  right: 0;
+  top: 10px;
+  background-color: #d0cdcd;
+  z-index: -1;
+}
+
+.progress-stepper-sec .progress-inner-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  text-align: center;
+}
+
+.progress-stepper-sec .progress-inner-step .pointer-sec {
+  height: 26px;
+  width: 26px;
+  background-color: #d0cdcd;
+  border-radius: 50%;
+  outline: 5px solid #fff;
+  box-sizing: border-box;
+  margin-bottom: 8px;
+  display: grid;
+  color: #fff;
+  place-items: center;
+  position: relative;
+  z-index: 1;
+  text-align: center;
+}
+
+.step-active {
+  background-color: #2c7cff !important;
+}
+
+.step-completed {
+  background-color: #09b917 !important;
+  background-image: url("../../public/check-icon.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.form-section {
+  box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px,
+    rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+  max-width: 870px;
+  border-radius: 6px;
+  margin: auto;
+  margin-top: 110px !important;
+  padding: 17px;
+}
+
+.form-field-sec {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.step-content {
+  margin-top: 42px;
+}
