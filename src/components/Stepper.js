@@ -1,6 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
+import { FormProvider } from "./FormSection";
 
-const Stepper = ({ step }) => {
+const Stepper = () => {
+  const { currentStep } = useContext(FormProvider);
   const [steppers, setSteppers] = useState([
     "User Details",
     "Address Details",
@@ -14,13 +16,21 @@ const Stepper = ({ step }) => {
   //   return stepNum;
   // };
 
+  // useEffect(() => {
+  //   let stepArr = [];
+  //   for (let index = 0; index < currentStep; index++) {
+  //     stepArr.push(index);
+  //   }
+  //   setStepsArr(stepArr);
+  // }, []);
+
   useEffect(() => {
-    if (stepsArr.length - 1 > step) {
-      setStepsArr(stepsArr.filter((el) => el !== step + 1));
+    if (stepsArr.length - 1 > currentStep) {
+      setStepsArr(stepsArr.filter((el) => el !== currentStep + 1));
     } else {
-      setStepsArr([...stepsArr, step]);
+      setStepsArr([...stepsArr, currentStep]);
     }
-  }, [step]);
+  }, [currentStep]);
 
   return (
     <div className="stepper-sec">
@@ -39,16 +49,32 @@ const Stepper = ({ step }) => {
               )}
               <div
                 className={`pointer-sec ${
-                  step == index
+                  currentStep == index
                     ? "step-active"
                     : stepsArr.includes(index)
                     ? "step-completed"
                     : ""
                 }`}
               >
-                <span>{step == index ? (index + 1) : stepsArr.includes(index) ? "" : (index + 1)}</span>
+                <span>
+                  {currentStep == index
+                    ? index + 1
+                    : stepsArr.includes(index)
+                    ? ""
+                    : index + 1}
+                </span>
               </div>
-              <span className="step-txt">{ele}</span>
+              <span
+                className={`step-txt ${
+                  currentStep == index
+                    ? "step-txt-active"
+                    : stepsArr.includes(index)
+                    ? "step-txt-completed"
+                    : ""
+                }`}
+              >
+                {ele}
+              </span>
             </div>
           );
         })}
