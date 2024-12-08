@@ -49,7 +49,7 @@ const InputField = ({
       <input
         type={type}
         id={name}
-        autocomplete="off"
+        autoComplete="off"
         value={value}
         name={name}
         placeholder={placeholder}

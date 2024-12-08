@@ -12,7 +12,9 @@ const NavigationBtn = ({ handleBack, handleNext }) => {
       )}
 
       {currentStep == 3 ? (
-        <button className="next-btn next-full-btn">
+        <button className="next-btn next-full-btn" onClick={()=>{
+          alert('Form details saved sucessfully');
+        }}>
           Submit
         </button>
       ) : (
