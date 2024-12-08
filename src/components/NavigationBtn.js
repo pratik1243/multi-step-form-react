@@ -6,12 +6,17 @@ const NavigationBtn = ({ handleBack, handleNext }) => {
   return (
     <div className="navigation-btn-sec">
       {currentStep !== 0 && (
-        <button onClick={handleBack} className="back-btn">
+        <button onClick={handleBack} className="back-btn back-full-btn">
           Back
         </button>
       )}
-      {currentStep !== 3 && (
-        <button onClick={handleNext} className="next-btn">
+
+      {currentStep == 3 ? (
+        <button className="next-btn next-full-btn">
+          Submit
+        </button>
+      ) : (
+        <button onClick={handleNext} className="next-btn next-full-btn">
           Next
         </button>
       )}

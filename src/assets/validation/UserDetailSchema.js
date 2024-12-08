@@ -1,4 +1,3 @@
-import { formAction } from "./onSubmitValidFunc";
 
 export const UserDetailSchema = {
   fields: {
@@ -9,7 +8,7 @@ export const UserDetailSchema = {
     },
     errors: {
       name: {
-        regex: /^[A-Za-z0-9-]{3,}$/,
+        regex: /^[a-z][a-zA-Z]+( [a-z][a-zA-Z]+)*$/,
         message: ["This field is required", "Full name is not valid"],
       },
       email: {
@@ -17,7 +16,7 @@ export const UserDetailSchema = {
         message: ["This field is required", "Email address is not valid"],
       },
       phone: {
-        regex: /^[+]?[0-9]{1,4}[-\s]?[0-9]{1,15}$/,
+        regex: /^(\+91[\s]?)?(\d{10})$/,
         message: ["This field is required", "Phone number is not valid"],
       },
     },

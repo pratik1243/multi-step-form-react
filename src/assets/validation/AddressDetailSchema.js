@@ -1,4 +1,3 @@
-import { formAction } from "./onSubmitValidFunc";
 
 export const AddressDetailSchema = {
   fields: {
@@ -10,13 +9,13 @@ export const AddressDetailSchema = {
     },
     errors: {
       addressLine1: {
-        regex: /^[a-zA-Z0-9]+$/,
+        regex: /^[a-zA-Z0-9 ]+$/,
         message: ["This field is required", "Address is not valid"],
       },
       addressLine2: {
         optional: true,
-        regex: /^[a-zA-Z0-9]+$/,
-        message: ["This field is required", "Address is not valid"],
+        regex: /^[a-zA-Z0-9 ]+$/,
+        message: ["", "Address is not valid"],
       },
       city: {
         regex: /^[a-zA-Z0-9]+$/,

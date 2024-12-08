@@ -1,26 +1,21 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 const InputField = ({
   type = "text",
   label,
   name,
+  value,
   placeholder,
   required,
   onChange,
   validationSchema,
   setValue,
-  errorProps
+  errorProps,
 }) => {
   const onFieldChange = (e) => {
     const { value } = e.target;
 
     if (value == "") {
-      setValue((prev) => {
-        return {
-          ...prev,
-          isFormValid: false,
-        };
-      });
       errorProps?.setErrors((prev) => {
         return {
           ...prev,
@@ -28,25 +23,13 @@ const InputField = ({
         };
       });
     } else if (!validationSchema?.errors[name]?.regex.test(value)) {
-      setValue((prev) => {
-        return {
-          ...prev,
-          isFormValid: false,
-        };
-      });
       errorProps?.setErrors((prev) => {
         return {
           ...prev,
-          [name]: validationSchema?.errors[name]?.message[1],
+          [name]: validationSchema?.errors[name].optional ? { optional: true, message: validationSchema?.errors[name]?.message[1], } : validationSchema?.errors[name]?.message[1],
         };
       });
     } else {
-      setValue((prev) => {
-        return {
-          ...prev,
-          isFormValid: true,
-        };
-      });
       errorProps?.setErrors((prev) => {
         return {
           ...prev,
@@ -54,15 +37,10 @@ const InputField = ({
         };
       });
     }
-    setValue((prev) => {
-      return {
-        ...prev,
-        values: {
-          ...prev.values,
-          [name]: value,
-        },
-      };
-    });
+    
+    setValue((prev)=>{
+      return {...prev, [name]: value}
+    })
     onChange && onChange(e);
   };
 
@@ -71,6 +49,8 @@ const InputField = ({
       <input
         type={type}
         id={name}
+        autocomplete="off"
+        value={value}
         name={name}
         placeholder={placeholder}
         className="input-field"
@@ -80,7 +60,11 @@ const InputField = ({
       <label htmlFor={name} className="input-label">
         {label} {required && <span className="required">*</span>}
       </label>
-       {errorProps?.errors[name] && <span className="input-field-error">{errorProps?.errors[name]}</span>}
+      {errorProps?.errors[name] && (
+        <span className="input-field-error">
+          {errorProps?.errors[name]?.optional ? errorProps?.errors[name].message : errorProps?.errors[name]}
+        </span>
+      )}
     </div>
   );
 };

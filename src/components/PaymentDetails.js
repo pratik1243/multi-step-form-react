@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import InputField from "./fieldComponents/InputField";
 import { PaymentDetailSchema } from "../assets/validation/PaymentDetailSchema";
 import NavigationBtn from "./NavigationBtn";
@@ -6,12 +6,19 @@ import { FormProvider } from "./FormSection";
 import { formAction } from "../assets/validation/onSubmitValidFunc";
 
 const PaymentDetails = () => {
-  const { setCurrentStep, formDetails } = useContext(FormProvider);
-  const [paymentDetails, setPaymentDetails] = useState(PaymentDetailSchema.fields);
+  const { setCurrentStep, formDetails, setFormDetails } = useContext(FormProvider);
+  const [paymentDetails, setPaymentDetails] = useState(PaymentDetailSchema.fields.values);
   const [errors, setErrors] = useState(PaymentDetailSchema.fields.values);
+
+  useEffect(() => {
+    if (Object.keys(formDetails?.paymentDetails).length) {
+      setPaymentDetails(formDetails?.paymentDetails);
+    }
+  }, []);
 
   return (
     <div>
+      <h3 className="form-heading">Payment Details</h3>
       <div className="form-field-sec">
         <div>
           <InputField
@@ -19,6 +26,7 @@ const PaymentDetails = () => {
             name={"cardHolderName"}
             placeholder={"Enter card holder name"}
             required
+            value={paymentDetails?.cardHolderName}
             setValue={setPaymentDetails}
             errorProps={{ errors, setErrors }}
             validationSchema={PaymentDetailSchema.fields}
@@ -30,6 +38,7 @@ const PaymentDetails = () => {
             name={"cardNumber"}
             placeholder={"Enter card number"}
             required
+            value={paymentDetails?.cardNumber}
             setValue={setPaymentDetails}
             errorProps={{ errors, setErrors }}
             validationSchema={PaymentDetailSchema.fields}
@@ -42,6 +51,7 @@ const PaymentDetails = () => {
             name={"expiryDate"}
             placeholder={"Select expiry date"}
             required
+            value={paymentDetails?.expiryDate}
             setValue={setPaymentDetails}
             errorProps={{ errors, setErrors }}
             validationSchema={PaymentDetailSchema.fields}
@@ -53,6 +63,7 @@ const PaymentDetails = () => {
             name={"cvv"}
             placeholder={"Enter cvv"}
             required
+            value={paymentDetails?.cvv}
             setValue={setPaymentDetails}
             errorProps={{ errors, setErrors }}
             validationSchema={PaymentDetailSchema.fields}
@@ -62,11 +73,9 @@ const PaymentDetails = () => {
 
       <NavigationBtn
         handleNext={() => {
-          formAction(
-            paymentDetails,
-            setErrors,
-            (values) => {
-              setCurrentStep(3);
+          formAction(paymentDetails, setErrors, PaymentDetailSchema.fields.errors, (values) => {
+            setFormDetails({...formDetails, paymentDetails: values});            
+            setCurrentStep(3);
             }
           );
         }}

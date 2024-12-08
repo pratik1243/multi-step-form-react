@@ -7,7 +7,7 @@ const Stepper = () => {
     "User Details",
     "Address Details",
     "Payment Details",
-    "Preview Details",
+    "Preview",
   ]);
   const [stepsArr, setStepsArr] = useState([]);
 

@@ -7,9 +7,9 @@ import FileUpload from "./fieldComponents/FileUpload";
 import { formAction } from "../assets/validation/onSubmitValidFunc";
 
 const UserDetails = () => {
-  const { setCurrentStep, formDetails } = useContext(FormProvider);
-  const [userDetails, setUserDetails] = useState(UserDetailSchema.fields);
-  const [errors, setErrors] = useState(UserDetailSchema.fields.values);
+  const { setCurrentStep, formDetails, setFormDetails } = useContext(FormProvider);
+  const [userDetails, setUserDetails] = useState(UserDetailSchema.fields.values);
+  const [errors, setErrors] = useState(UserDetailSchema.fields);
   const [fileUpload, setFileUpload] = useState({
     file_name: "",
     file_size: "",
@@ -17,17 +17,25 @@ const UserDetails = () => {
     file_uploaded_error: false,
   });
 
-  // useEffect(() => {
-  //   let formData = localStorage.getItem("formDetails");
-  //   if (formData) {
-  //     setUserDetails(JSON.parse(formData));
-  //   }
-    
-  // }, []);
+  useEffect(() => {
+    if (Object.keys(formDetails?.userDetails).length) {
+      setUserDetails(formDetails?.userDetails);
 
+      if (formDetails?.userDetails?.photo) {
+        setFileUpload({
+          ...fileUpload,
+          file_name: formDetails?.userDetails.photo?.name,
+          file_size: formDetails?.userDetails.photo.size,
+          file_uploaded: true,
+          file_uploaded_error: false,
+        });
+      }
+    }
+  }, []);
 
   return (
     <div>
+      <h3 className="form-heading">User Details</h3>
       <div className="form-field-sec">
         <div>
           <InputField
@@ -35,6 +43,7 @@ const UserDetails = () => {
             name={"name"}
             placeholder={"Enter full name"}
             required
+            value={userDetails?.name}
             setValue={setUserDetails}
             errorProps={{ errors, setErrors }}
             validationSchema={UserDetailSchema.fields}
@@ -46,6 +55,7 @@ const UserDetails = () => {
             name={"email"}
             placeholder={"Enter email address"}
             required
+            value={userDetails?.email}
             setValue={setUserDetails}
             errorProps={{ errors, setErrors }}
             validationSchema={UserDetailSchema.fields}
@@ -57,6 +67,7 @@ const UserDetails = () => {
             name={"phone"}
             placeholder={"Enter phone number"}
             required
+            value={userDetails?.phone}
             setValue={setUserDetails}
             errorProps={{ errors, setErrors }}
             validationSchema={UserDetailSchema.fields}
@@ -68,13 +79,46 @@ const UserDetails = () => {
           fileLabel="Upload Photo"
           fileTypes={["image/png", "image/jpeg", "image/jpg"]}
           filesProps={{ fileUpload, setFileUpload }}
+          onChange={(files) => {
+            setUserDetails({
+              ...userDetails,
+              photo: {
+                name: files?.name,
+                size: files?.size,
+              },
+            });
+          }}
+          onRemoveFiles={() => {
+            setUserDetails((current) => {
+              const { photo, ...rest } = current;
+              return rest;
+            });
+          }}
         />
       </div>
       <NavigationBtn
         handleNext={() => {
-          formAction(userDetails, setErrors, UserDetailSchema.fields.errors, (values) => {
-            setCurrentStep(1);
-          });
+          formAction(
+            userDetails,
+            setErrors,
+            UserDetailSchema.fields.errors,
+            (values) => {
+              setFormDetails({
+                ...formDetails,
+                userDetails: {
+                  ...values,
+                  ...(fileUpload.file_uploaded && {
+                    photo: {
+                      name: fileUpload.file_name,
+                      size: fileUpload.file_size,
+                    },
+                  }),
+                },
+              });
+
+              setCurrentStep(1);
+            }
+          );
         }}
         handleBack={() => {
           setCurrentStep(0);

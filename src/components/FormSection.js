@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import UserDetails from "./UserDetails";
 import AddressDetails from "./AddressDetails";
 import PaymentDetails from "./PaymentDetails";
@@ -10,18 +10,23 @@ export const FormProvider = createContext();
 
 const FormSection = () => {
   const [currentStep, setCurrentStep] = useState(0);
-  // const [formDetails, setFormDetails] = useState({
-  //   userDetails: {},
-  //   addressDetails: {},
-  //   paymentDetails: {},
-  //   previewDetails: {},
-  // });
+  const [formDetails, setFormDetails] = useState(() => {
+    const savedData = sessionStorage.getItem('formDetails');
+    return savedData ? JSON.parse(savedData) : {
+      userDetails: {},
+      addressDetails: {},
+      paymentDetails: {},
+    };
+  });
 
-  let formDetails = {};
+  useEffect(() => {
+    sessionStorage.setItem('formDetails', JSON.stringify(formDetails));
+  }, [formDetails]);
 
   return (
     <div>
-      <FormProvider value={{ currentStep, setCurrentStep, formDetails }}>
+      <FormProvider value={{ currentStep, setCurrentStep, formDetails, setFormDetails }}>
+        <div className="mobile-stepper-sec"><Stepper /></div>      
         <div className="form-section">
           <Stepper />
           <div className="step-content">
