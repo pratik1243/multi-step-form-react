@@ -8,7 +8,7 @@ export const PaymentDetailSchema = {
     },
     errors: {
       cardHolderName: {
-        regex: /^[a-z][a-zA-Z]+( [a-z][a-zA-Z]+)*$/,
+        regex: /^[A-Za-z ]{3,}$/,
         message: ["This field is required", "Card holder name is not valid"],
       },
       cardNumber: {

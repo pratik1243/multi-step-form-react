@@ -8,7 +8,7 @@ export const UserDetailSchema = {
     },
     errors: {
       name: {
-        regex: /^[a-z][a-zA-Z]+( [a-z][a-zA-Z]+)*$/,
+        regex: /^[A-Za-z ]{3,}$/,
         message: ["This field is required", "Full name is not valid"],
       },
       email: {
