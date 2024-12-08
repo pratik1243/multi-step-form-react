@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/multi-step-form-react/static/css/main.0b6caa31.css",
-    "main.js": "/multi-step-form-react/static/js/main.fe32579c.js",
+    "main.css": "/multi-step-form-react/static/css/main.b68480db.css",
+    "main.js": "/multi-step-form-react/static/js/main.0f88c7bc.js",
     "static/media/file-remove-icon.png": "/multi-step-form-react/static/media/file-remove-icon.9b10b497753c5d702a58.png",
     "static/media/file-img-icon.png": "/multi-step-form-react/static/media/file-img-icon.bb0349e0bbca479b4aed.png",
     "index.html": "/multi-step-form-react/index.html",
     "static/media/file-error-icon.svg": "/multi-step-form-react/static/media/file-error-icon.811bdcd4f20461fb91a5ce5d8430349a.svg",
     "static/media/check-icon.svg": "/multi-step-form-react/static/media/check-icon.5636d52dfc1778db53da.svg",
-    "main.0b6caa31.css.map": "/multi-step-form-react/static/css/main.0b6caa31.css.map",
-    "main.fe32579c.js.map": "/multi-step-form-react/static/js/main.fe32579c.js.map"
+    "main.b68480db.css.map": "/multi-step-form-react/static/css/main.b68480db.css.map",
+    "main.0f88c7bc.js.map": "/multi-step-form-react/static/js/main.0f88c7bc.js.map"
   },
   "entrypoints": [
-    "static/css/main.0b6caa31.css",
-    "static/js/main.fe32579c.js"
+    "static/css/main.b68480db.css",
+    "static/js/main.0f88c7bc.js"
   ]
 }
